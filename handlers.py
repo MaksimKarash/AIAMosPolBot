@@ -108,6 +108,7 @@ async def handle_rating(callback: CallbackQuery) -> None:
     except Exception as e:
         print(f"Не удалось обновить клавиатуру: {e}")
 
+# Аналитика: выводит статистику оценок и топ-3 проблемных вопросов
 @router.message(Command("stats"))
 async def cmd_stats(message: Message):
     ADMIN_ID = 876899591 # <-- Твой ID
