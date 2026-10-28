@@ -35,9 +35,15 @@ def get_category_menu(category: str) -> InlineKeyboardMarkup:
     
     return InlineKeyboardMarkup(inline_keyboard=keyboard)
 
-def get_answer_menu(category: str) -> InlineKeyboardMarkup:
-    """Кнопки под ответом"""
+def get_answer_menu(category: str, question_id: str) -> InlineKeyboardMarkup:
+    """Кнопки под ответом: Оценка, Назад, В меню"""
     keyboard = [
+        # Ряд с кнопками оценок
+        [
+            InlineKeyboardButton(text="👍 Помогло", callback_data=f"rate_up_{question_id}"),
+            InlineKeyboardButton(text="👎 Не помогло", callback_data=f"rate_down_{question_id}")
+        ],
+        # Ряд с навигацией
         [InlineKeyboardButton(text="⬅️ Назад к вопросам", callback_data=f"cat_{category}")],
         [InlineKeyboardButton(text="🏠 В главное меню", callback_data="to_main")]
     ]
