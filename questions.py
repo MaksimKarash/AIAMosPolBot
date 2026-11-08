@@ -122,7 +122,7 @@ QUESTIONS = {
         "question": "Что запрещено делать на территории университета?",
         "answer": "https://mospolytech.ru/sveden/files/Pravila_vnutrennego_rasporyadka_obuchayuschixsya.pdf",
         "source": "Деканат / Учебный отдел"
-    },
+     }
 }
 
 def get_by_category(category: str) -> dict:
