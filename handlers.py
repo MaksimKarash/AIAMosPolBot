@@ -67,7 +67,11 @@ async def back_to_main(callback: CallbackQuery) -> None:
 # 5. Кнопка "Помощь"
 @router.callback_query(F.data == "help")
 async def help_callback(callback: CallbackQuery) -> None:
-    await callback.message.answer("Нажми на кнопку с нужной категорией, чтобы найти ответ.")
+    await callback.message.answer(
+        "Я умею отвечать двумя способами:\n\n"
+        "1️⃣ Нажми на кнопку с нужной категорией (Учёба, Навигация и т.д.), чтобы найти готовый ответ.\n"
+        "2️⃣ Или просто **напиши свой вопрос текстом** прямо в чат (например: «Как получить справку?»), и я постараюсь ответить с помощью нейросети!"
+    )
     await callback.answer()
 
 # 6. Команда /help
