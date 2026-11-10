@@ -1,4 +1,8 @@
 # handlers.py
+from ai_client import ask_ai
+from prompts import SYSTEM_PROMPT
+from aiogram.enums import ChatAction # Чтобы бот показывал "печатает..."
+
 import os
 from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
@@ -198,3 +202,22 @@ async def cmd_stats(message: Message):
 @router.message()
 async def fallback(message: Message) -> None:
     await message.answer("Я не понял вопрос 🤔\nПожалуйста, выбери категорию из меню.", reply_markup=get_main_menu())
+
+# !!!Часть кода ниже должна быть ниже всех кнопок и команд
+@router.message(F.text)
+async def handle_free_text(message: Message):
+    """Ловит любой текст, который не подошел под кнопки, и отправляет ИИ"""
+    
+    # Показываем, что бот "печатает"
+    await message.bot.send_chat_action(chat_id=message.chat.id, action=ChatAction.TYPING)
+    
+    # Отправляем статус
+    thinking_msg = await message.answer("🤔 Думаю над твоим вопросом...")
+    
+    # Запрашиваем ответ у нейросети
+    ai_response = await ask_ai(question=message.text, system_prompt=SYSTEM_PROMPT)
+    
+    # Удаляем сообщение "Думаю..." и отправляем ответ
+    await thinking_msg.delete()
+    await message.answer(ai_response)
+#!!!Часть кода выше должна быть ниже всех кнопок и команд
